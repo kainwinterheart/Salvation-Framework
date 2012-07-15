@@ -1,0 +1,31 @@
+use strict;
+
+package Salvation::Service::View::Stack;
+
+use Moose;
+
+extends 'Salvation::Service::View::Stack::Frame::List';
+
+foreach my $attr ( ( 'id', 'ftype', 'cap', 'fname' ) )
+{
+	has $attr => ( is => 'ro', isa => 'Undef' );
+}
+
+has '_frames'   => ( is         => 'rw',
+                     isa        => 'ArrayRef',
+                     init_arg   => 'frames',
+                     default    => sub{ [] },
+                     predicate  => '_has_frames',
+                     clearer    => '_clear_frames',
+                     lazy       => 1
+                   );
+
+sub frames
+{
+	return shift -> data();
+}
+
+no Moose;
+
+-1;
+
