@@ -6,19 +6,27 @@ package test;
 
 use Devel::Cycle;
 
-# use SomeSystem::Services::FirstService ();
-# use SomeSystem::Services::FirstService::Defaults::V ();
+use SomeSystem::Services::FirstService;
+# use SomeSystem::Services::FirstService::Defaults::V;
 
-# use Salvation::View ();
+# use Salvation::View;
 
-use Data::Dumper 'Dumper';
+use Data::Dumper;
 
-use SomeSystem ();
+use SomeSystem;
 
 my $system = SomeSystem -> new();
 
 print Dumper( my $result = $system -> start() );
 # print Dumper( my $service = SomeSystem::Services::FirstService -> new( system => $system ) );
+
+#{
+#use Salvation::Service::View::Stack::Convert::To::XML ();
+
+#print Salvation::Service::View::Stack::Convert::To::XML -> parse( $result -> [ 0 ] -> { 'state' } -> view_output() ) . "\n";
+#}
+
+
 find_cycle( $system );
 # find_cycle( $service );
 find_cycle( $result );

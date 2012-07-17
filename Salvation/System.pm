@@ -154,7 +154,27 @@ sub main
 
 sub output
 {
-	return $_[ 1 ];
+	my ( undef, $states ) = @_;
+
+	my $output = '';
+
+	foreach my $node ( @$states )
+	{
+		if( my $op = $node -> { 'op' } )
+		{
+			$output .= eval{ $op -> main() };
+		}
+	}
+
+	my ( $decl ) = ( $output =~ m/<\?xml(.+?)\?>/i );
+
+	if( $decl )
+	{
+		$output =~ s/<\?xml(.+?)\?>[\n]?//gi;
+		$output = sprintf( '<?xml%s?>%s<output>%s</output>', $decl, "\n", $output );
+	}
+
+	return $output;
 }
 
 sub on_service_thrown_error

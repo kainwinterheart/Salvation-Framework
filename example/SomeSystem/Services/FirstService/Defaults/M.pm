@@ -8,7 +8,7 @@ extends 'Salvation::Service::Model';
 
 sub columns_some_custom_column
 {
-	return rand();
+	return ( rand(), '<asd>";\'фывфыв</asd>\\' );
 }
 
 sub __columns

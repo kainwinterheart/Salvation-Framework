@@ -12,7 +12,7 @@ foreach my $attr ( ( 'id', 'ftype', 'cap', 'fname' ) )
 }
 
 has '_frames'   => ( is         => 'rw',
-                     isa        => 'ArrayRef',
+                     isa        => 'ArrayRef[Salvation::Service::View::Stack::Frame]',
                      init_arg   => 'frames',
                      default    => sub{ [] },
                      predicate  => '_has_frames',

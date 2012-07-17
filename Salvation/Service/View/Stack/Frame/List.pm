@@ -15,7 +15,7 @@ has 'is_list'	=> ( is => 'ro', isa => 'Bool', default => 1, init_arg => undef );
 has 'data'	=> ( is => 'ro', isa => 'Undef', init_arg => undef );
 
 has '_frames'   => ( is  	=> 'rw',
-		     isa 	=> 'ArrayRef',
+		     isa 	=> 'ArrayRef[Salvation::Service::View::Stack::Frame]',
 		     init_arg 	=> 'data',
 		     default 	=> sub{ [] },
 		     predicate 	=> '_has_frames',

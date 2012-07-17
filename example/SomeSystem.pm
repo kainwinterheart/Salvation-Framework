@@ -11,6 +11,7 @@ sub BUILD
 	my $self = shift;
 
 	$self -> Service( 'FirstService' );
+	$self -> Service( 'FirstService' );
 	$self -> Service( 'SecondService' );
 	$self -> Service( 'ThirdService' ); #, { transform_name => sub{ 'FirstService' } } );
 }
