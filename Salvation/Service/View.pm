@@ -121,7 +121,15 @@ ACTUAL_RENDERING_OF_EACH_NODE:
 							{
 								( $val, $cap ) = eval{ $self -> service() -> model() -> $name( @{ $spec -> { 'args' } } ) };
 
-								unless( $@ )
+								if( my $err = $@ )
+								{
+									$self -> service() -> system() -> on_node_rendering_error( {
+										'$@'     => $err,
+										view     => ( ref( $self ) or $self ),
+										instance => $self,
+										spec     => $spec
+									} );
+								} else
 								{
 									$rendered = 1;
 									last ACTUAL_RENDERING_OF_EACH_NODE;

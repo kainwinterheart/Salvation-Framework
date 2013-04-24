@@ -189,6 +189,10 @@ sub on_service_rerun
 {
 }
 
+sub on_node_rendering_error
+{
+}
+
 no Moose;
 
 -1;
