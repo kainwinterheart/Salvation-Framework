@@ -24,6 +24,7 @@ my $service = SomeSystem::Services::FirstService -> new( system => $system );
 
 $service -> model();
 $service -> view();
+$service -> output_processor();
 
 print Dumper( $service );
 

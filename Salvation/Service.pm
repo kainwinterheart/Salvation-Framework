@@ -17,6 +17,13 @@ foreach my $name ( ( 'model', 'view', 'controller' ) )
 	has $name => ( is => 'ro', isa => 'Maybe[Salvation::Service::' . $ucfirst . ']', lazy => 1, init_arg => undef, default => sub{ return shift -> __build_infrastructure_reference( substr( $ucfirst, 0, 1 ) ); } );
 }
 
+has 'output_processor' => ( is => 'ro', isa => 'Maybe[Salvation::Service::OutputProcessor]', lazy => 1, init_arg => undef, default => sub
+{
+	my $self = shift;
+
+	return $self -> __build_infrastructure_reference( 'OutputProcessor' => ( system => $self -> system(), state => $self -> state() ) );
+} );
+
 has '__nohook'	=> ( is => 'ro', isa => 'Bool', default => 0, lazy => 1 );
 
 has 'hook'	=> ( is => 'ro', isa => 'Maybe[Salvation::Service::Hook]', lazy => 1, builder => '_build_hook', predicate => 'has_hook' );

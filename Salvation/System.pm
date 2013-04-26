@@ -100,7 +100,7 @@ RUN_SERVICE:
 
 				if( $instance -> start() == 0 )
 				{
-					my $op = $instance -> __build_infrastructure_reference( 'OutputProcessor' => ( system => $self, state => $instance -> state() ) );
+					my $op = $instance -> output_processor();
 
 					push @states, {
 						service => $service,
