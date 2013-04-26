@@ -196,7 +196,11 @@ sub _build_hook
 
 		while( $instance and $instance -> hook() )
 		{
+			my $parent_link = $instance;
+
 			$instance = $instance -> hook();
+
+			$instance -> __parent_link( $parent_link );
 		}
 	}
 
@@ -209,20 +213,38 @@ sub __build_infrastructure_reference
 
 	my $pkg = '';
 
-	if( my $href = ref( $self -> hook() ) )
+	if( my $hook = $self -> hook() )
 	{
 		my $sref = ref( $self );
-		$href =~ s/^$sref\:\://;
 
-		unless( &load_class( $pkg = &full_pkg( $sref, $self -> __full_default_pkg( $suffix, $href ) ) ) )
+		while( $hook )
 		{
-			$pkg = '';
+			last if
+				$pkg = $self -> __try_to_load_infrastructure_package( $suffix, $sref, ref( $hook ) );
+
+			$hook = $hook -> __parent_link();
 		}
 	}
 
 	$pkg ||= $self -> __full_default_pkg( $suffix );
 
 	return ( &load_class( $pkg ) ? $pkg -> new( ( scalar( @rest ) ? @rest : ( service => $self ) ) ) : undef );
+}
+
+sub __try_to_load_infrastructure_package
+{
+	my ( $self, $suffix, $sref, $href ) = @_;
+
+	my $pkg = '';
+
+	$href =~ s/^$sref\:\://;
+
+	unless( &load_class( $pkg = &full_pkg( $sref, $self -> __full_default_pkg( $suffix, $href ) ) ) )
+	{
+		$pkg = '';
+	}
+
+	return $pkg;
 }
 
 sub cacheid

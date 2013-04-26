@@ -18,7 +18,18 @@ use SomeSystem;
 my $system = SomeSystem -> new();
 
 print Dumper( my $result = $system -> start() );
-# print Dumper( my $service = SomeSystem::Services::FirstService -> new( system => $system ) );
+
+{
+my $service = SomeSystem::Services::FirstService -> new( system => $system );
+
+$service -> model();
+$service -> view();
+
+print Dumper( $service );
+
+find_cycle( $service );
+}
+
 
 #{
 #use Salvation::Service::View::Stack::Convert::To::XML ();
