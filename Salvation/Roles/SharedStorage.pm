@@ -8,10 +8,10 @@ has 'storage' => ( is => 'rw', isa => 'Salvation::SharedStorage', lazy => 1, bui
 
 sub __build_storage
 {
+	require Salvation::SharedStorage;
+
 	my $self = shift;
 	my $o    = Salvation::SharedStorage -> new();
-
-	require Salvation::SharedStorage;
 
 	if( $self -> isa( 'Salvation::Service' ) )
 	{
