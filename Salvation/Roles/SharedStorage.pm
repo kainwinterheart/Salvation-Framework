@@ -4,7 +4,7 @@ package Salvation::Roles::SharedStorage;
 
 use Moose::Role;
 
-has 'storage' => ( is => 'rw', isa => 'Salvation::SharedStorage', lazy => 1, default => sub{ require Salvation::SharedStorage; return Salvation::SharedStorage -> new(); } );
+has 'storage' => ( is => 'rw', isa => 'Salvation::SharedStorage', lazy => 1, builder => '__build_storage' );
 
 sub __build_storage
 {
