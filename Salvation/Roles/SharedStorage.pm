@@ -39,6 +39,15 @@ sub __build_storage
 				value    => $value
 			} );
 
+			if( $key eq '$@' )
+			{
+				$self -> system() -> on_service_shared_storage_receives_error_notification( {
+					service  => ( ref( $self ) or $self ),
+					instance => $self,
+					data     => $value
+				} );
+			}
+
 			return $lself -> $orig( $key, $value, @rest );
 		} );
 
@@ -63,6 +72,13 @@ sub __build_storage
 				key   => $key,
 				value => $value
 			} );
+
+			if( $key eq '$@' )
+			{
+				$self -> on_shared_storage_receives_error_notification( {
+					data => $value
+				} );
+			}
 
 			return $lself -> $orig( $key, $value, @rest );
 		} );

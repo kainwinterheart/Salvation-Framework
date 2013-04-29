@@ -217,6 +217,14 @@ sub on_service_controller_method_error
 {
 }
 
+sub on_service_shared_storage_receives_error_notification
+{
+}
+
+sub on_shared_storage_receives_error_notification
+{
+}
+
 no Moose;
 
 -1;
