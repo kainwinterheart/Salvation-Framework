@@ -116,8 +116,19 @@ SCAN_HOOK_LIST:
 			if( $self -> __load_hook( $result = &full_pkg( @path ) ) )
 			{
 				last SCAN_HOOK_LIST;
+
 			} else
 			{
+				if( my $err = $@ )
+				{
+					$self -> system() -> on_hook_load_error( {
+						'$@'     => $err,
+						hook     => $result,
+						service  => ( ref( $self ) or $self ),
+						instance => $self
+					} );
+				}
+
 				$result = '';
 			}
 		}

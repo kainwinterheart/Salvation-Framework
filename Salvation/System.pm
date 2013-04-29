@@ -193,6 +193,10 @@ sub on_node_rendering_error
 {
 }
 
+sub on_hook_load_error
+{
+}
+
 no Moose;
 
 -1;
