@@ -20,8 +20,9 @@ sub __build_storage
 			my ( $orig, $lself, $key, @rest ) = @_;
 
 			$self -> system() -> on_service_shared_storage_get( {
-				service => $self,
-				key     => $key
+				service  => ( ref( $self ) or $self ),
+				instance => $self,
+				key      => $key
 			} );
 
 			return $lself -> $orig( $key, @rest );
@@ -32,9 +33,10 @@ sub __build_storage
 			my ( $orig, $lself, $key, $value, @rest ) = @_;
 
 			$self -> system() -> on_service_shared_storage_put( {
-				service => $self,
-				key     => $key,
-				value   => $value
+				service  => ( ref( $self ) or $self ),
+				instance => $self,
+				key      => $key,
+				value    => $value
 			} );
 
 			return $lself -> $orig( $key, $value, @rest );
