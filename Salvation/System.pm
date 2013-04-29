@@ -197,6 +197,22 @@ sub on_hook_load_error
 {
 }
 
+sub on_service_shared_storage_get
+{
+}
+
+sub on_service_shared_storage_put
+{
+}
+
+sub on_shared_storage_get
+{
+}
+
+sub on_shared_storage_put
+{
+}
+
 no Moose;
 
 -1;
