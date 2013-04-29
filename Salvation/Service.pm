@@ -172,9 +172,19 @@ sub __run_controller_methods
 
 			$self -> __safecall( 'controller', sub{ shift -> $method( @args ) } );
 
-			if( ( my $err = $self -> storage() -> get( '$@' ) ) and $flags -> { 'fatal' } )
+			if( my $err = $self -> storage() -> get( '$@' ) )
 			{
-				$self -> state() -> stop();
+				$self -> system() -> on_service_controller_method_error( {
+					service  => ( ref( $self ) or $self ),
+					instance => $self,
+					'$@'     => $err,
+					method   => $method
+				} );
+
+				if( $flags -> { 'fatal' } )
+				{
+					$self -> state() -> stop();
+				}
 			}
 		}
 	}

@@ -213,6 +213,10 @@ sub on_shared_storage_put
 {
 }
 
+sub on_service_controller_method_error
+{
+}
+
 no Moose;
 
 -1;
