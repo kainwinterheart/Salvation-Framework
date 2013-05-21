@@ -8,11 +8,12 @@ use Module::Build ();
 
 Module::Build
 	-> new(
-		module_name   => 'Salvation',
-		dist_abstract => 'Build complex systems on top of simple skel',
-		dist_author   => [ 'Gennadiy Filatov <kain.winterheart@gmail.com>' ],
-		license       => 'perl',
-		requires      => {
+		module_name 		=> 'Salvation',
+		dist_abstract 		=> 'Build complex systems on top of simple skel',
+		dist_author 		=> [ 'Gennadiy Filatov <kain.winterheart@gmail.com>' ],
+		license 		=> 'perl',
+		recursive_test_files 	=> 1,
+		requires 		=> {
 			'perl'		=> '>= 5.10.1',
 			'Carp' 		=> 1.25,
 			'Carp::Assert' 	=> 0.20,
@@ -24,11 +25,11 @@ Module::Build
 			'Moose' 	=> 2.0402,
 			'Scalar::Util' 	=> 1.21,
 			'XML::Writer' 	=> 0.615,
+			'Module::Load'	=> 0.16,
 		}
 	)
 	-> create_build_script()
 ;
-
 
 exit 0;
 
