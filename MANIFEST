@@ -24,3 +24,6 @@ lib/Salvation/Service/View/Stack/Parser.pm
 lib/Salvation/SharedStorage.pm
 lib/Salvation/Stuff.pm
 lib/Salvation/System.pm
+Build.PL
+MANIFEST
+MANIFEST.SKIP
