@@ -40,6 +40,10 @@ t/02-regular/03-get_data_from_dataset.t
 t/02-regular/04-process_view_with_model.t
 t/02-regular/05-execution_flow.t
 t/02-regular/06-schedule_and_call_controller_methods.t
+t/02-regular/07-callbacks/01-on_service_thrown_error.t
+t/02-regular/07-callbacks/02-on_service_thrown_error-many_thrown_errors.t
+t/02-regular/07-callbacks/03-on_service_thrown_error-prio.t
+t/02-regular/07-callbacks/04-on_service_thrown_error-many_thrown_errors-controller.t
 t/03-complex/01-simple_hook/01-model.t
 t/03-complex/01-simple_hook/02-view.t
 t/03-complex/01-simple_hook/03-controller.t
