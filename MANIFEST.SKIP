@@ -2,7 +2,6 @@
 ^Makefile$
 ^_build/
 ^blib/
-^t/
 ^.travis.yml$
 ^.git/
 ^MYMETA.yml$
