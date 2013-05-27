@@ -2,7 +2,7 @@ use strict;
 
 package Salvation;
 
-our $VERSION = 0.99.1;
+our $VERSION = 0.99_01;
 
 -1;
 
