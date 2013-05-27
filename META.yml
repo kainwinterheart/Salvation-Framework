@@ -1,0 +1,82 @@
+---
+abstract: 'Build complex systems on top of simple skel'
+author:
+  - 'Gennadiy Filatov <kain.winterheart@gmail.com>'
+configure_requires:
+  Module::Build: 0.36
+generated_by: 'Module::Build version 0.3603'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: Salvation
+provides:
+  Salvation:
+    file: lib/Salvation.pm
+    version: v0.99.2147483647
+  Salvation::Roles::AppArgs:
+    file: lib/Salvation/Roles/AppArgs.pm
+  Salvation::Roles::DataSet:
+    file: lib/Salvation/Roles/DataSet.pm
+  Salvation::Roles::ServiceReference:
+    file: lib/Salvation/Roles/ServiceReference.pm
+  Salvation::Roles::ServiceState:
+    file: lib/Salvation/Roles/ServiceState.pm
+  Salvation::Roles::SharedStorage:
+    file: lib/Salvation/Roles/SharedStorage.pm
+  Salvation::Roles::SystemReference:
+    file: lib/Salvation/Roles/SystemReference.pm
+  Salvation::Service:
+    file: lib/Salvation/Service.pm
+  Salvation::Service::Controller:
+    file: lib/Salvation/Service/Controller.pm
+  Salvation::Service::DataSet:
+    file: lib/Salvation/Service/DataSet.pm
+  Salvation::Service::Hook:
+    file: lib/Salvation/Service/Hook.pm
+  Salvation::Service::Intent:
+    file: lib/Salvation/Service/Intent.pm
+  Salvation::Service::Model:
+    file: lib/Salvation/Service/Model.pm
+  Salvation::Service::OutputProcessor:
+    file: lib/Salvation/Service/OutputProcessor.pm
+  Salvation::Service::State:
+    file: lib/Salvation/Service/State.pm
+  Salvation::Service::View:
+    file: lib/Salvation/Service/View.pm
+  Salvation::Service::View::SimpleCache:
+    file: lib/Salvation/Service/View/SimpleCache.pm
+    version: 1
+  Salvation::Service::View::Stack:
+    file: lib/Salvation/Service/View/Stack.pm
+  Salvation::Service::View::Stack::Convert::To::XML:
+    file: lib/Salvation/Service/View/Stack/Convert/To/XML.pm
+  Salvation::Service::View::Stack::Frame:
+    file: lib/Salvation/Service/View/Stack/Frame.pm
+  Salvation::Service::View::Stack::Frame::List:
+    file: lib/Salvation/Service/View/Stack/Frame/List.pm
+  Salvation::Service::View::Stack::Parser:
+    file: lib/Salvation/Service/View/Stack/Parser.pm
+  Salvation::SharedStorage:
+    file: lib/Salvation/SharedStorage.pm
+  Salvation::Stuff:
+    file: lib/Salvation/Stuff.pm
+    version: 1
+  Salvation::System:
+    file: lib/Salvation/System.pm
+requires:
+  Carp: 1.25
+  Carp::Assert: 0.2
+  Digest::MD5: 2.39
+  File::Path: 2.0703
+  File::Spec: 3.3
+  Getopt::Std: 1.06
+  IO::String: 1.08
+  Module::Load: 0.16
+  Moose: 2.0402
+  Scalar::Util: 1.21
+  XML::Writer: 0.615
+  perl: '>= 5.10.1'
+resources:
+  license: http://dev.perl.org/licenses/
+version: v0.99.2147483647
