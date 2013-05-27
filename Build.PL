@@ -18,7 +18,7 @@ Module::Build
 			'Carp' 		=> 1.25,
 			'Carp::Assert' 	=> 0.20,
 			'Digest::MD5' 	=> 2.39,
-			'File::Path' 	=> '2.07_03',
+			'File::Path' 	=> 2.07_03,
 			'File::Spec' 	=> 3.3,
 			'Getopt::Std' 	=> 1.06,
 			'IO::String' 	=> 1.08,
