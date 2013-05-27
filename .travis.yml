@@ -6,5 +6,5 @@ perl:
  - "5.16"
 
 install:
- - cpanm -v --installdeps --notest .
+ - mv META.yml META.yml.1 && cpanm -v --installdeps --notest . && mv META.yml.1 META.yml
 
