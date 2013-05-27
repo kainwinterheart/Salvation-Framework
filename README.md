@@ -6,6 +6,8 @@ Warning: partially unfinished, but already works
 
 Here's a simple web presentation: http://autumncoffee.com/salvation/
 
+[![Build Status](https://travis-ci.org/kainwinterheart/Salvation-Framework.png?branch=master)](https://travis-ci.org/kainwinterheart/Salvation-Framework)
+
 ## TODO:
 + Autorun for any system
 + Caching
