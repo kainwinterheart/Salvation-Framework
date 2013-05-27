@@ -13,7 +13,7 @@ name: Salvation
 provides:
   Salvation:
     file: lib/Salvation.pm
-    version: v0.99.2147483647
+    version: 0.9901
   Salvation::Roles::AppArgs:
     file: lib/Salvation/Roles/AppArgs.pm
   Salvation::Roles::DataSet:
@@ -79,4 +79,4 @@ requires:
   perl: '>= 5.10.1'
 resources:
   license: http://dev.perl.org/licenses/
-version: v0.99.2147483647
+version: 0.9901
