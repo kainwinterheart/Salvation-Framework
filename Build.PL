@@ -13,6 +13,9 @@ Module::Build
 		dist_author 		=> [ 'Gennadiy Filatov <kain.winterheart@gmail.com>' ],
 		license 		=> 'perl',
 		recursive_test_files 	=> 1,
+		configure_requires	=> {
+			'Module::Build' => 0.36
+		},
 		requires 		=> {
 			'perl'		=> '>= 5.10.1',
 			'Carp' 		=> 1.25,

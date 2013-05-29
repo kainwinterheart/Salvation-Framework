@@ -6,4 +6,5 @@
 ^.git/
 ^MYMETA.yml$
 ^MYMETA.json$
+^META.json$
 ^README.md$

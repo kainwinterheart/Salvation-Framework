@@ -55,3 +55,5 @@ t/03-complex/03-multiple_hooks/01-first-by_prio.t
 t/03-complex/03-multiple_hooks/02-second-by_prio.t
 t/03-complex/03-multiple_hooks/03-second-by_value.t
 t/03-complex/04-chained_hooks.t
+t/03-complex/05-intent.t
+META.json
