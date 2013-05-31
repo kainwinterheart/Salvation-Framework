@@ -16,6 +16,22 @@ has '__service'	=> ( is => 'ro', isa => 'Str', required => 1, lazy => 1, default
 
 has 'service' => ( is => 'ro', isa => 'Salvation::Service', builder => '_build_service', lazy => 1, init_arg => undef );
 
+has '__built'	=> ( is => 'rw', isa => 'Bool', default => 0, init_arg => undef );
+
+sub BUILD
+{
+	my $self = shift;
+
+	$self -> __built( 1 );
+}
+
+before 'DESTROY' => sub
+{
+	my $self = shift;
+
+	$self -> __built( 0 );
+};
+
 sub _build_service
 {
 	my $self = shift;
@@ -34,11 +50,16 @@ sub _build_service
 
 		( my $method = $AUTOLOAD ) =~ s/^.*\:\://;
 
-		my $o = $self -> service();
+		if( $self -> __built() )
+		{
+			my $o = $self -> service();
 
-		return $o -> $method( @rest ) if $o -> can( $method );
+			return $o -> $method( @rest ) if $o -> can( $method );
 
-		confess( sprintf( 'Nor %s, nor %s has method %s', ( ref( $self ) or $self ), ( ref( $o ) or $o ), $method ) );
+			confess( sprintf( 'Nor %s, nor %s has method %s', ( ref( $self ) or $self ), ( ref( $o ) or $o ), $method ) );
+		}
+
+		confess( sprintf( '%s has no method %s', ( ref( $self ) or $self ), $method ) );
 	}
 }
 
@@ -51,7 +72,7 @@ sub can
 		return $code;
 	}
 
-	return $self -> service() -> can( @rest ) if blessed $self;
+	return $self -> service() -> can( @rest ) if blessed( $self ) and $self -> __built();
 
 	return undef;
 }
