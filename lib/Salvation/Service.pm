@@ -213,6 +213,15 @@ sub __load_hook
 	return &load_class( $self -> __full_hook_pkg( $pkg, $orig ) );
 }
 
+sub __associate_with_hook
+{
+	my ( $self, $hook ) = @_;
+
+	$hook -> __associated_service( $self );
+
+	return 1;
+}
+
 sub _build_hook
 {
 	my $self     = shift;
@@ -220,26 +229,14 @@ sub _build_hook
 
 	if( not( $self -> __nohook() ) and ( my $hook = $self -> __get_hook() ) )
 	{
-		$instance = eval{ $self -> intent( $self -> __full_hook_pkg( $hook ) ) -> service() };
-
-		while( $instance and $instance -> hook() )
+		if( $instance = eval{ $self -> intent( $self -> __full_hook_pkg( $hook ) ) -> service() } )
 		{
-			my $parent_link = $instance;
+			$self -> __associate_with_hook( $instance );
 
-			$instance = $instance -> hook();
-
-			$instance -> __parent_link( $parent_link );
-		}
-	}
-
-	if( $instance )
-	{
-		my $linstance = $instance;
-
-		while( $linstance )
-		{
-			$linstance -> __associated_service( $self );
-			$linstance = $linstance -> __parent_link();
+			if( my $lhook = $instance -> hook() )
+			{
+				$instance = $lhook;
+			}
 		}
 	}
 
