@@ -232,6 +232,17 @@ sub _build_hook
 		}
 	}
 
+	if( $instance )
+	{
+		my $linstance = $instance;
+
+		while( $linstance )
+		{
+			$linstance -> __associated_service( $self );
+			$linstance = $linstance -> __parent_link();
+		}
+	}
+
 	return $instance;
 }
 
@@ -338,6 +349,18 @@ sub throw
 	return 1;
 }
 
+sub __wrap_with_a_method_from_hook_and_call
+{
+	my ( $self, $code, @args ) = @_;
+
+	if( my $hook = $self -> hook() )
+	{
+		return $hook -> $code( @args );
+	}
+
+	return $self -> $code( @args );
+}
+
 sub start
 {
 	my $self = shift;
@@ -346,7 +369,7 @@ sub start
 
 	my $aux = sub{ return $self -> __safecall( 'controller', shift ); };
 
-	$self -> init();	# service -> init
+	$self -> __wrap_with_a_method_from_hook_and_call( sub{ shift -> init( @_ ) } );	# service -> init
 
 	return 2 if $self -> state() -> stopped();
 
@@ -358,7 +381,7 @@ sub start
 
 	return 4 if $self -> state() -> stopped();
 
-	$self -> main();	# service -> main
+	$self -> __wrap_with_a_method_from_hook_and_call( sub{ shift -> main( @_ ) } );	# service -> main
 
 	return 5 if $self -> state() -> stopped();
 
