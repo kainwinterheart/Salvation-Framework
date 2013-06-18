@@ -74,6 +74,11 @@ sub __full_service_pkg
 	return &full_pkg( ( $orig or ref( $self ) ), 'Services', $name );
 }
 
+sub stop
+{
+	last RUN_SERVICES; # EVILNESS
+}
+
 sub start
 {
 	my $self = shift;
@@ -82,6 +87,7 @@ sub start
 
 	my @states = ();
 
+RUN_SERVICES:
 	foreach my $service ( @{ $self -> __loaded_services() } )
 	{
 		my $has_hook = undef;
@@ -140,9 +146,23 @@ RUN_SERVICE:
 		}
 	}
 
+THROW_SCHEDULED_FATALS:
 	if( scalar( my @fatals = @{ $self -> __throwable_fatals() } ) )
 	{
-		die @fatals, &longmess();
+		if( scalar( grep{ ref } @fatals ) )
+		{
+			if( scalar( @fatals ) > 1 )
+			{
+				die \@fatals;
+
+			} else
+			{
+				die @fatals;
+			}
+		} else
+		{
+			die @fatals, &longmess();
+		}
 	}
 
 	return $self -> output( \@states );

@@ -60,4 +60,5 @@ t/03-complex/06-execution_flow-with_hook.t
 t/03-complex/07-schedule_and_call_controller_methods-with_hook.t
 t/03-complex/08-internal-service_association-chained_hooks.t
 t/03-complex/09-schedule_and_call_controller_methods-chained_hooks.t
+t/04-evil/01-run_away.t
 META.json

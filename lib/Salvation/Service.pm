@@ -343,6 +343,8 @@ sub throw
 	$self -> storage() -> put( '$@', \@rest );
 	$self -> state() -> stop();
 
+	goto STOPPED_VIA_THROW; # EVILNESS
+
 	return 1;
 }
 
@@ -402,6 +404,9 @@ sub start
 	return 9 if $self -> state() -> stopped();
 
 	return 0;
+
+STOPPED_VIA_THROW:
+	return 10;
 }
 
 sub main
