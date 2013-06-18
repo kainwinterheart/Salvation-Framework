@@ -71,8 +71,11 @@ sub main
 {
 	my $self = shift;
 
-	$self -> throw( 'first' );
+	$self -> storage() -> put( '$@' => [ 'first' ] );
+
 	$self -> throw( 'second' );
+
+	&Test::More::fail();
 
 	return;
 }

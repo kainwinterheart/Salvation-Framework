@@ -23,7 +23,7 @@ sub load_class
 {
 	my $class = shift;
 
-	return 1 if &is_namespace_present( $class );
+	return 1 if &is_namespace_present( $class ) and $class -> can( 'new' );
 
 	require Module::Load;
 

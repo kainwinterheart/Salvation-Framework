@@ -48,7 +48,7 @@ sub BUILD
 {
 	my $self = shift;
 
-	$self -> Call( $_ ) for 'something';
+	$self -> Call( $_ ) for 'something', 'other';
 }
 
 no Moose;
@@ -64,6 +64,11 @@ sub something
 	&Test::More::ok( 1 );
 
 	die SomeException -> new( str => q|Hey! Ima leaving!| );
+}
+
+sub other
+{
+	&Test::More::fail();
 }
 
 no Moose;

@@ -76,7 +76,7 @@ sub __full_service_pkg
 
 sub stop
 {
-	last RUN_SERVICES; # EVILNESS
+	goto THROW_SCHEDULED_FATALS; # EVILNESS
 }
 
 sub start
@@ -87,7 +87,6 @@ sub start
 
 	my @states = ();
 
-RUN_SERVICES:
 	foreach my $service ( @{ $self -> __loaded_services() } )
 	{
 		my $has_hook = undef;

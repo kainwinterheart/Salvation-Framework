@@ -64,7 +64,11 @@ sub main
 {
 	my $self = shift;
 
-	$self -> throw( 'engine testing' ) and return;
+	$self -> throw( 'engine testing' );
+
+	&Test::More::fail();
+
+	return;
 }
 
 no Moose;
