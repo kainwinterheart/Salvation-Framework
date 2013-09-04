@@ -244,6 +244,8 @@ sub on_shared_storage_receives_error_notification
 {
 }
 
+__PACKAGE__ -> meta() -> make_immutable();
+
 no Moose;
 
 -1;

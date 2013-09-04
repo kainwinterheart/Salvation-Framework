@@ -16,6 +16,8 @@ has 'data'	=> ( is => 'rw', isa => 'Str|' . __PACKAGE__ . '|Undef' );
 
 has 'is_list'   => ( is => 'ro', isa => 'Bool', default => 0, init_arg => undef );
 
+__PACKAGE__ -> meta() -> make_immutable();
+
 no Moose;
 
 -1;

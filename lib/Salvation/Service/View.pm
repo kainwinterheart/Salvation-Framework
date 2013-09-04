@@ -188,6 +188,8 @@ ACTUAL_RENDERING_OF_EACH_NODE:
 	return $stack;
 }
 
+__PACKAGE__ -> meta() -> make_immutable();
+
 no Moose;
 
 -1;

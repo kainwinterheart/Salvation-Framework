@@ -25,12 +25,12 @@ sub BUILD
 	$self -> __built( 1 );
 }
 
-before 'DESTROY' => sub
+sub DEMOLISH
 {
 	my $self = shift;
 
 	$self -> __built( 0 );
-};
+}
 
 sub _build_service
 {
@@ -76,6 +76,8 @@ sub can
 
 	return undef;
 }
+
+__PACKAGE__ -> meta() -> make_immutable();
 
 no Moose;
 

@@ -22,6 +22,8 @@ sub after_view_processing
 {
 }
 
+__PACKAGE__ -> meta() -> make_immutable();
+
 no Moose;
 
 -1;
