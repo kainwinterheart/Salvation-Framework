@@ -89,59 +89,9 @@ sub start
 
 	foreach my $service ( @{ $self -> __loaded_services() } )
 	{
-		my $has_hook = undef;
-		my $rerun    = undef;
-
-RUN_SERVICE:
+		if( defined( my $state = $self -> run_service( $service ) ) )
 		{
-			eval
-			{
-				my $instance = $service -> new( system   => $self,
-								args     => $self -> args(),
-								__nohook => ( ( $self -> args() -> { 'nohook' } or $rerun ) ? 1 : 0 ) );
-
-				$has_hook = ( $instance -> hook() ? 1 : 0 );
-				$rerun    = $instance -> RERUN_ON_BAD_HOOK();
-
-				if( $instance -> start() == 0 )
-				{
-					my $op = $instance -> output_processor();
-
-					push @states, {
-						service => $service,
-						state   => $instance -> state(),
-						( $op ? ( op => $op ) : () )
-					};
-
-				} elsif( my $err = $instance -> storage() -> get( '$@' ) )
-				{
-					$self -> on_service_thrown_error( {
-						'$@'     => $err,
-						instance => $instance,
-						service  => $service
-					} );
-				}
-			};
-
-			if( my $err = $@ )
-			{
-				eval
-				{
-					$self -> on_service_error( {
-						'$@'	=> $err,
-						service => $service
-					} );
-				};
-
-				if( $has_hook and $rerun )
-				{
-					$self -> on_service_rerun( {
-						service => $service
-					} );
-
-					redo RUN_SERVICE;
-				}
-			}
+			push @states, $state;
 		}
 	}
 
@@ -165,6 +115,71 @@ THROW_SCHEDULED_FATALS:
 	}
 
 	return $self -> output( \@states );
+}
+
+sub run_service
+{
+	my ( $self, $service ) = @_;
+
+	my $has_hook = undef;
+	my $rerun    = undef;
+	my $state    = undef;
+
+RUN_SERVICE:
+	{
+		eval
+		{
+			my $instance = $service -> new(
+				system   => $self,
+				args     => $self -> args(),
+				__nohook => ( ( $self -> args() -> { 'nohook' } or $rerun ) ? 1 : 0 )
+			);
+
+			$has_hook = ( $instance -> hook() ? 1 : 0 );
+			$rerun    = $instance -> RERUN_ON_BAD_HOOK();
+
+			if( $instance -> start() == 0 )
+			{
+				my $op = $instance -> output_processor();
+
+				$state = {
+					service => $service,
+					state   => $instance -> state(),
+					( $op ? ( op => $op ) : () )
+				};
+
+			} elsif( my $err = $instance -> storage() -> get( '$@' ) )
+			{
+				$self -> on_service_thrown_error( {
+					'$@'     => $err,
+					instance => $instance,
+					service  => $service
+				} );
+			}
+		};
+
+		if( my $err = $@ )
+		{
+			eval
+			{
+				$self -> on_service_error( {
+					'$@'	=> $err,
+					service => $service
+				} );
+			};
+
+			if( $has_hook and $rerun )
+			{
+				$self -> on_service_rerun( {
+					service => $service
+				} );
+
+				redo RUN_SERVICE;
+			}
+		}
+	}
+
+	return $state;
 }
 
 sub main
