@@ -119,7 +119,7 @@ THROW_SCHEDULED_FATALS:
 
 sub run_service
 {
-	my ( $self, $service ) = @_;
+	my ( $self, $service, @service_args ) = @_;
 
 	my $has_hook = undef;
 	my $rerun    = undef;
@@ -130,6 +130,7 @@ RUN_SERVICE:
 		eval
 		{
 			my $instance = $service -> new(
+				@service_args,
 				system   => $self,
 				args     => $self -> args(),
 				__nohook => ( ( $self -> args() -> { 'nohook' } or $rerun ) ? 1 : 0 )
