@@ -55,3 +55,37 @@ no Moose;
 
 -1;
 
+# ABSTRACT: Base class for output processor engine
+
+=pod
+
+=head1 NAME
+
+Salvation::Service::OutputProcessor - Base class for output processor engine
+
+=head1 REQUIRES
+
+L<Moose> 
+
+=head1 DESCRIPTION
+
+=head2 Applied roles
+
+L<Salvation::Roles::ServiceState>
+
+L<Salvation::Roles::SystemReference>
+
+=head1 METHODS
+
+=head2 To be redefined
+
+You can redefine following methods to achieve your own goals.
+
+=head3 main
+
+An actual output processing routine.
+Should return any defined value which is suitable for your system. Also it is recommended to set this value to C<output> attribute of L<Salvation::Service::State> object instance.
+The only argument is C<$self> which is current OutputProcessor's instance.
+
+=cut
+

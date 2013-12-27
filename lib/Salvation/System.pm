@@ -382,7 +382,7 @@ Its return value is the return value of C<Salvation::System::start>.
 
 Arguments
 
-=over
+=over 4
 
 =item C<$self>
 
@@ -390,7 +390,23 @@ Current system's instance.
 
 =item C<$states>
 
-An ArrayRef of L<Salvation::Service::State>s.
+An ArrayRef of HashRefs. Each HashRef has following keys:
+
+=over 8
+
+=item service
+
+Service's package name.
+
+=item state
+
+L<Salvation::Service::State> object instance.
+
+=item op
+
+L<Salvation::Service::OutputProcessor> object instance. It is not present if the service hasn't defined an output processor.
+
+=back
 
 =back
 
