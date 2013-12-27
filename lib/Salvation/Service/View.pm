@@ -194,3 +194,203 @@ no Moose;
 
 -1;
 
+# ABSTRACT: Base class for a view
+
+=pod
+
+=head1 NAME
+
+Salvation::Service::View - Base class for a view
+
+=head1 SYNOPSIS
+
+ package YourSystem::Services::SomeService::Defaults::V;
+
+ use Moose;
+
+ extends 'Salvation::Service::View';
+
+ no Moose;
+
+=head1 DESCRIPTION
+
+=head2 Applied roles
+
+L<Salvation::Roles::ServiceReference>
+
+=head1 REQUIRES
+
+L<Moose> 
+
+=head1 METHODS
+
+=head2 To be called
+
+=head3 process
+
+ $view_instance -> process();
+
+Processes service's DataSet with C<$view_instance> and sets a L<Salvation::Service::View::Stack> instance, or an ArrayRef of those instances (depending on C<MULTINODE> result), to C<view_output> attribute of appropriate L<Salvation::Service::State> instance, returning the value being set.
+
+=head3 process_node
+
+ $view_instance -> process_node( $object );
+ $view_instance -> process_node( $object, \@template );
+
+Processes C<$object> with C<$view_instance> using C<\@template> and returns L<Salvation::Service::View::Stack> instance.
+C<@template> could containt anything C<main>'s returning value could containt.
+Default C<@template> contents are C<main>'s returning value' contents.
+
+=head2 To be redefined
+
+You can redefine following methods to achieve your own goals.
+
+=head3 MULTINODE
+
+Should return boolean value.
+Tells the view if it needs to process and return many rows returned by DataSet, or just one.
+The only argument is C<$self> which is current view's instance.
+Default value is false.
+
+=head3 main
+
+Should return an ArrayRef containing template data which will be used to process objects.
+
+Each element of an ArrayRef could be either of the following:
+
+=over 4
+
+=item Non-reference scalar
+
+A text which is interpreted as the type of each column listed in an ArrayRef which follows this text, if any.
+Example usage:
+
+ regular_database_column => [
+ 	'id',
+	'name'
+ ]
+
+Having this, the view knows which methods of the model it needs to call in order to process each column.
+
+=item ArrayRef
+
+A list of column specs. Each element of such ArrayRef will be translated to model's method call.
+Each element of an ArrayRef could be either of the following:
+
+=over 8
+
+=item Non-reference scalar
+
+A text which is interpreted as the name of the column. Here an appropriate model's method call is happening.
+
+In example, having an element named C<id> and column type already set to C<regular_database_column>, the view will generate model's method name like this:
+
+ my $type   = 'regular_database_column';
+ my $column = 'id';
+
+ my $model_method = sprintf(
+ 	'%s_%s',
+	$type,
+	$column
+ );
+
+Then the view will check if the model C<can( $model_method )> and, if it is true, will call this method with an C<$object> argument where the C<$object> is the object being processed right now.
+
+However, if the check returned false, the view will try to generate another method name like this:
+
+ my $another_model_method = sprintf(
+ 	'__%s',
+	$type
+ );
+
+Then the view will check if the model C<can( $another_model_method )> and, if it is true, will call this method with two arguments: C<$object> and C<$column> where the C<$object> is the object being processed right now and the C<$column> is the name of current column.
+
+=item HashRef
+
+Advanced column spec. Should contain one key and one value where key is the plain column name and the value is the HashRef which will be interpreted as column modifiers.
+
+Example:
+
+ some_type => [
+ 	'id',
+	{ column => \%modifiers }
+ ]
+
+Column modifiers could be:
+
+=over 12
+
+=item constraint
+
+A CodeRef which will be called in order to check whether the column needs to be processed, or needs to be skipped. Should return boolean value.
+
+ constraint => sub
+ {
+	my ( $view_instance, $object_being_processed, $service_args ) = @_;
+
+ 	return ( int( rand( 2 ) ) == 1 );
+ }
+
+C<$service_args> is the returning value of view's service's C<args> method.
+
+=item nocache
+
+A boolean value.
+
+By default, the view will try to calculate a value for current column using probably light model's method which name is generated like this:
+
+ sprintf(
+ 	'__%s',
+	$type
+ )
+
+Then the view will use this value in couple with the column's name and a few other parameters to produce some unique key.
+
+Then the view will check its cache using L<Salvation::Service::View::SimpleCache> and if there is a value - this value will be used immediately as the column's value, skipping all the calculations described above.
+
+But if the cache has no value for the key - this value will appear in the cache after all further calculations will be done, and will be reused if there will be a request to do the same calculations.
+
+So yes, if the C<nocache> modifier is set to true - there will be no cache usage for such column.
+
+=item skip_false
+
+A boolean value.
+If set to true, the column will not be included in the output if it has the value equivalent to PERL's false.
+Default value is false.
+
+=item sticky
+
+As the opposite of C<skip_false>, C<sticky> guarantees that the column will be included in the output even if it's value is equivalent to PERL's false and C<skip_false> is set to true.
+
+If the key C<sticky> exists in column modifiers list - it is true, otherwise it is false.
+
+=back
+
+=back
+
+=item CodeRef
+
+It will be executed for every object which is being processed with following arguments:
+
+=over 8
+
+=item $self
+
+Current view's instance.
+
+=item $object
+
+An object being processed.
+
+=item $args
+
+Returning value of view's service's C<args> method.
+
+=back
+
+Returning value should be a HashRef containing arguments to the C<new> method of L<Salvation::Service::View::Stack::Frame>.
+
+=back
+
+=cut
+
