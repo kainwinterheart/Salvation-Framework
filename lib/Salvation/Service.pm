@@ -423,3 +423,211 @@ no Moose;
 
 -1;
 
+# ABSTRACT: Base class for a service
+
+=pod
+
+=head1 NAME
+
+Salvation::Service - Base class for a service
+
+=head1 SYNOPSIS
+
+ package YourSystem::Services::SomeService;
+
+ use Moose;
+
+ extends 'Salvation::Service';
+
+ no Moose;
+
+=head1 REQUIRES
+
+L<Digest::MD5> 
+
+L<Moose> 
+
+=head1 DESCRIPTION
+
+=head2 Applied roles
+
+L<Salvation::Roles::AppArgs>
+
+L<Salvation::Roles::DataSet>
+
+L<Salvation::Roles::SharedStorage>
+
+L<Salvation::Roles::SystemReference>
+
+L<Salvation::Roles::ServiceState>
+
+=head1 METHODS
+
+=head2 To be called
+
+=head3 Call
+
+ $self -> Call( $name );
+ $self -> Call( $name, \%flags );
+
+Add a method with C<$name> to the list of controller methods.
+Each and every method from this list will be called at appropriate stage of the execution flow.
+
+You can use C<\%flags> to do some tweaking providing following keys:
+
+=over
+
+=item transform_method
+
+A CodeRef which will be called in order to change method's name.
+
+ transform_method => sub
+ {
+ 	my ( $service_instance, $method_name ) = @_;
+
+	$method_name = 'A' if $method_name eq 'B';
+
+ 	return $method_name;
+ }
+
+Useful when you feel especially crutchy.
+
+=item constraint
+
+A CodeRef which will be called in order to check whether the method needs to be called, or not. Should return boolean value.
+
+ constraint => sub
+ {
+ 	my ( $service_instance, $method_name ) = @_;
+
+ 	return ( int( rand( 2 ) ) == 1 );
+ }
+
+=item args
+
+An ArrayRef of method arguments.
+
+=item fatal
+
+A boolean value. When this value is true and the method fails - the service will be interrupted.
+
+=back
+
+=head3 Hook
+
+ $self -> Hook( $value, $type );
+ $self -> Hook( $value, $type, \%flags );
+
+Adds a hook spec to the list.
+
+Hook name will be generated somehow like this:
+
+ sprintf(
+ 	'%s::Hooks::%s::%s',
+	ref( $self ),
+	$type,
+	$value
+ )
+
+You can use C<\%flags> to do some tweaking providing following keys:
+
+=over
+
+=item transform_value
+
+A CodeRef which will be called in order to change C<$value>.
+
+ transform_value => sub
+ {
+ 	my ( $service_instance, $value, $type ) = @_;
+
+	$value = not $value if $type eq not $type;
+
+	return $value;
+ }
+
+=item transform_type
+
+A CodeRef which will be called in order to change C<$type>.
+
+ transform_type => sub
+ {
+ 	my ( $service_instance, $value, $type ) = @_;
+
+	$type = 'Generic' if $type eq 'Specific';
+
+	return $type;
+ }
+
+=item transform_value_and_type
+
+A CodeRef which will be called in order to change both C<$value> and C<$type>.
+
+ transform_value_and_type => sub
+ {
+ 	my ( $service_instance, $value, $type ) = @_;
+
+	$value ^= ( $type ^= ( $value ^= $type ) );
+
+	return ( $value, $type );
+ }
+
+Because why not?
+
+=item constraint
+
+A CodeRef which will be called in order to check whether the hook needs to be used, or not. Should return boolean value.
+
+ constraint => sub
+ {
+ 	my ( $service_instance, $value, $type ) = @_;
+
+	return ( int( rand( 2 ) ) == 1 );
+ }
+
+=back
+
+=head3 intent
+
+ $self -> intent( $full_package_name );
+
+Returns new L<Salvation::Service::Intent> object intended to run C<$full_package_name> service within the same environment and with the same DataSet as current service.
+
+=head3 throw
+
+ $self -> throw( @anything );
+
+Throws an error which is the C<\@anything> (yes, it will be ArrayRef) to the internals of Salvation and interrupts the service.
+
+=head3 start
+
+ $service_instance -> start();
+
+A method which really starts the service and returns the output of the whole process. Normally you should not want to call this method directly as your have C<Salvation::System::run_service> and C<Salvation::Service::Intent::start>.
+
+=head2 To be redefined
+
+You can redefine following methods to achieve your own goals.
+
+=head3 RERUN_ON_BAD_HOOK
+
+Should return boolean value.
+Tells the system whether service should be rerun without any hooks on failure, or not.
+The only argument is C<$self> which is current service's instance.
+Default value is true.
+
+=head3 cacheid
+
+=head3 init
+
+A method which semantics tells that it should contain custom initialziation routines, if any is needed.
+The only argument is C<$self> which is current service's instance.
+
+=head3 main
+
+A method which semantics tells that it should contain custom code which is kind of essential for the whole service and should be executed every time. Normally it is sufficient to move such things to controller and schedule calls via C<Call>.
+The only argument is C<$self> which is current service's instance.
+
+
+=cut
+
