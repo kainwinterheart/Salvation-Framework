@@ -266,3 +266,540 @@ no Moose;
 
 -1;
 
+# ABSTRACT: Base class for a system
+
+
+=head1 NAME
+
+Salvation::System - Base class for a system
+
+=head1 SYNOPSIS
+
+ package YourSystem;
+
+ use Moose;
+
+ extends 'Salvation::System';
+
+ no Moose;
+
+=head1 REQUIRES
+
+L<Carp> 
+
+L<Moose> 
+
+=head1 DESCRIPTION
+
+=head2 Applied roles
+
+L<Salvation::Roles::SharedStorage>
+
+L<Salvation::Roles::AppArgs>
+
+=head1 METHODS
+
+=head2 To be called
+
+=head3 start
+
+ $system_instance -> start();
+
+A method which really starts the system and returns the output of the whole process.
+
+=head3 stop
+
+ $self -> stop();
+
+A method which interrupts the system immediately.
+
+=head3 run_service
+
+ $self -> run_service( $absolute_package_name );
+ $self -> run_service( $absolute_package_name, @service_constructor_args );
+
+A method which runs the full cycle of the given service and returns appropriate L<Salvation::Service::State> if run was successfull.
+
+=head3 Service
+
+ $self -> Service( $relative_package_name );
+ $self -> Service( $relative_package_name, \%flags );
+
+Add a service with C<$name> to the list of system's services.
+
+You can use C<\%flags> to do some tweaking providing following keys:
+
+=over
+
+=item transform_name
+
+A CodeRef which will be called in order to change service's name.
+
+ transform_name => sub
+ {
+ 	my ( $system_instance, $service_name ) = @_;
+
+	$service_name =~ s/MattSmith/DavidTennant/g;
+
+	return $service_name;
+ }
+
+Useful when you feel especially crutchy.
+
+=item constraint
+
+A CodeRef which will be called in order to check whether the service needs to be run, or not. Should return boolean value.
+
+ constraint => sub
+ {
+ 	my ( $system_instance, $service_name ) = @_;
+
+	return ( int( rand( 2 ) ) == 1 );
+ }
+
+=back
+
+=head3 Fatal
+
+ $self -> Fatal( @anything );
+
+Add C<@anything> to the list of fatal errors.
+The thing will C<die> with this list in the end.
+
+=head2 To be redefined
+
+You can redefine following methods to achieve your own goals.
+
+=head3 main
+
+Very first method to be executed in the execution flow.
+The only argument is C<$self> which is current system's instance.
+
+=head3 output
+
+A method which is responsible for generating final system's output.
+Its return value is the return value of C<Salvation::System::start>.
+
+Arguments
+
+=over
+
+=item C<$self>
+
+Current system's instance.
+
+=item C<$states>
+
+An ArrayRef of L<Salvation::Service::State>s.
+
+=back
+
+=head3 on_hook_load_error
+
+Triggerred by L<Salvation::Service> when it fails to load hook.
+
+Arguments
+
+=over 4
+
+=item C<$self>
+
+Current system's instance.
+
+=item C<$data>
+
+A HashRef with error data. The keys are:
+
+=over 8
+
+=item C<$@>
+
+Containts an error as it has been passed to C<die>.
+
+=item hook
+
+Hook's package name.
+
+=item service
+
+Service's package name.
+
+=item instance
+
+Service's instance.
+
+=back
+
+=back
+
+=head3 on_node_rendering_error
+
+Triggerred by L<Salvation::Service::View> when it fails to execute any model's method during C<process_node>.
+
+Arguments
+
+=over 4
+
+=item C<$self>
+
+Current system's instance.
+
+=item C<$data>
+
+A HashRef with error data. The keys are:
+
+=over 8
+
+=item C<$@>
+
+Containts an error as it has been passed to C<die>.
+
+=item spec
+
+A HashRef telling how and which method has been called.
+
+The keys are:
+
+=over 12
+
+=item name
+
+Method name.
+
+=item args
+
+An ArrayRef with method's arguments.
+
+=back
+
+=item view
+
+View's package name.
+
+=item instance
+
+View's instance.
+
+=back
+
+=back
+
+=head3 on_service_controller_method_error
+
+Triggerred by L<Salvation::Service> when it fails to run scheduled controller method.
+
+Arguments
+
+=over 4
+
+=item C<$self>
+
+Current system's instance.
+
+=item C<$data>
+
+A HashRef with error data. The keys are:
+
+=over 8
+
+=item C<$@>
+
+Containts an error as it has been passed to C<die>.
+
+=item method
+
+Method name.
+
+=item service
+
+Service's package name.
+
+=item instance
+
+Service's instance.
+
+=back
+
+=back
+
+=head3 on_service_error
+
+Triggerred by L<Salvation::System> when it fails to run the service.
+
+Arguments
+
+=over 4
+
+=item C<$self>
+
+Current system's instance.
+
+=item C<$data>
+
+A HashRef with error data. The keys are:
+
+=over 8
+
+=item C<$@>
+
+Containts an error as it has been passed to C<die>.
+
+=item service
+
+Service's package name.
+
+=back
+
+=back
+
+=head3 on_service_rerun
+
+Triggerred by L<Salvation::System> when it is about to rerun the service without hooks.
+
+Arguments
+
+=over 4
+
+=item C<$self>
+
+Current system's instance.
+
+=item C<$data>
+
+A HashRef with error data. The keys are:
+
+=over 8
+
+=item service
+
+Service's package name.
+
+=back
+
+=back
+
+=head3 on_service_shared_storage_get
+
+Triggerred by L<Salvation::SharedStorage> when it is about to call its C<get> and the owner of storage is L<Salvation::Service>.
+
+Arguments
+
+=over 4
+
+=item C<$self>
+
+Current system's instance.
+
+=item C<$data>
+
+A HashRef with error data. The keys are:
+
+=over 8
+
+=item key
+
+Storage key name.
+
+=item service
+
+Service's package name.
+
+=item instance
+
+Service's instance.
+
+=back
+
+=back
+
+=head3 on_service_shared_storage_put
+
+Triggerred by L<Salvation::SharedStorage> when it is about to call its C<put> and the owner of storage is L<Salvation::Service>.
+
+Arguments
+
+=over 4
+
+=item C<$self>
+
+Current system's instance.
+
+=item C<$data>
+
+A HashRef with error data. The keys are:
+
+=over 8
+
+=item key
+
+Storage key name.
+
+=item value
+
+A value which is about to be stored.
+
+=item service
+
+Service's package name.
+
+=item instance
+
+Service's instance.
+
+=back
+
+=back
+
+=head3 on_service_shared_storage_receives_error_notification
+
+Triggerred by L<Salvation::SharedStorage> when it is about to call its C<put> with the key equal to '$@' and the owner of storage is L<Salvation::Service>.
+
+Arguments
+
+=over 4
+
+=item C<$self>
+
+Current system's instance.
+
+=item C<$data>
+
+A HashRef with error data. The keys are:
+
+=over 8
+
+=item data
+
+A value which is about to be stored.
+
+=item service
+
+Service's package name.
+
+=item instance
+
+Service's instance.
+
+=back
+
+=back
+
+=head3 on_service_thrown_error
+
+Triggerred by L<Salvation::System> when the service has been interrupted and service's storage has a key named '$@'.
+
+Arguments
+
+=over 4
+
+=item C<$self>
+
+Current system's instance.
+
+=item C<$data>
+
+A HashRef with error data. The keys are:
+
+=over 8
+
+=item $@
+
+Containts an error as it has been passed to C<Salvation::SharedStorage::put>.
+
+=item service
+
+Service's package name.
+
+=item instance
+
+Service's instance.
+
+=back
+
+=back
+
+=head3 on_shared_storage_get
+
+Triggerred by L<Salvation::SharedStorage> when it is about to call its C<get> and the owner of storage is L<Salvation::System>.
+
+Arguments
+
+=over 4
+
+=item C<$self>
+
+Current system's instance.
+
+=item C<$data>
+
+A HashRef with error data. The keys are:
+
+=over 8
+
+=item key
+
+Storage key name.
+
+=back
+
+=back
+
+=head3 on_shared_storage_put
+
+Triggerred by L<Salvation::SharedStorage> when it is about to call its C<put> and the owner of storage is L<Salvation::System>.
+
+Arguments
+
+=over 4
+
+=item C<$self>
+
+Current system's instance.
+
+=item C<$data>
+
+A HashRef with error data. The keys are:
+
+=over 8
+
+=item key
+
+Storage key name.
+
+=item value
+
+A value which is about to be stored.
+
+=back
+
+=back
+
+=head3 on_shared_storage_receives_error_notification
+
+Triggerred by L<Salvation::SharedStorage> when it is about to call its C<put> with the key equal to '$@' and the owner of storage is L<Salvation::System>.
+
+Arguments
+
+=over 4
+
+=item C<$self>
+
+Current system's instance.
+
+=item C<$data>
+
+A HashRef with error data. The keys are:
+
+=over 8
+
+=item data
+
+A value which is about to be stored.
+
+=back
+
+=back
+
+
+=cut
+
