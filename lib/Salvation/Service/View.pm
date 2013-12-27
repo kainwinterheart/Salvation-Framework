@@ -226,6 +226,12 @@ L<Moose>
 
 =head2 To be called
 
+=head3 service
+
+ $self -> service();
+
+Return appropriate L<Salvation::Service>-derived object instance.
+
 =head3 process
 
  $view_instance -> process();

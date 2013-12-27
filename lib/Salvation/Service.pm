@@ -465,6 +465,42 @@ L<Salvation::Roles::ServiceState>
 
 =head2 To be called
 
+=head3 system
+
+ $service -> system()
+
+Return appropriate L<Salvation::System>-derived object instance.
+
+=head3 model
+
+ $service -> model();
+
+Return appropriate L<Salvation::Service::Model>-derived object instance.
+
+=head3 view
+
+ $service -> view();
+
+Return appropriate L<Salvation::Service::View>-derived object instance.
+
+=head3 controller
+
+ $service -> controller();
+
+Return appropriate L<Salvation::Service::Controller>-derived object instance.
+
+=head3 output_processor
+
+ $service -> output_processor();
+
+Return appropriate L<Salvation::Service::OutputProcessor>-derived object instance.
+
+=head3 hook
+
+ $service -> hook();
+
+Return appropriate L<Salvation::Service::Hook>-derived object instance. Normally you should not want to call this method directly.
+
 =head3 Call
 
  $self -> Call( $name );
