@@ -63,6 +63,16 @@ no Moose;
 
 Salvation::Service::OutputProcessor - Base class for output processor engine
 
+=head1 SYNOPSIS
+
+ package YourSystem::Services::SomeService::Defaults::OutputProcessor;
+
+ use Moose;
+
+ extends 'Salvation::Service::OutputProcessor';
+
+ no Moose;
+
 =head1 REQUIRES
 
 L<Moose> 

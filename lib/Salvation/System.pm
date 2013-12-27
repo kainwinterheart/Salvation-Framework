@@ -269,6 +269,8 @@ no Moose;
 # ABSTRACT: Base class for a system
 
 
+=pod
+
 =head1 NAME
 
 Salvation::System - Base class for a system
