@@ -128,3 +128,58 @@ no Moose;
 
 -1;
 
+# ABSTRACT: Handy storage object
+
+=pod
+
+=head1 NAME
+
+Salvation::SharedStorage - Handy storage object
+
+=head1 SYNOPSIS
+
+ $storage -> get( $key );
+ $storage -> put( $key => $value );
+
+=head1 REQUIRES
+
+L<Moose> 
+
+=head1 METHODS
+
+=head2 clear
+
+ $storage -> clear();
+
+Clears the storage.
+
+=head2 get
+
+ $storage -> get( $key );
+
+Returns stored value for C<$key>.
+
+=head2 put
+
+ $storage -> put( $key => $value );
+
+Stores C<$value> for C<$key>.
+
+=head2 add_before_get_handler
+
+=head2 add_around_get_handler
+
+=head2 add_after_get_handler
+
+=head2 add_before_put_handler
+
+=head2 add_around_put_handler
+
+=head2 add_after_put_handler
+
+ $storage -> $method( sub{ ... } )
+
+Add an appropriate method modifier (see L<Moose::Manual::MethodModifiers>) to B<current instance> of L<Salvation::SharedStorage>.
+
+=cut
+
