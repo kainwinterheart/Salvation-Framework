@@ -83,3 +83,52 @@ no Moose;
 
 -1;
 
+# ABSTRACT: Special object representing an intention of running another service within the same environment as the current one
+
+=pod
+
+=head1 NAME
+
+Salvation::Service::Intent - Special object representing an intention of running another service within the same environment as the current one
+
+=head1 SYNOPSIS
+
+ $service_instance
+ 	-> intent( 'YourSystem::Services::OtherService' )
+	-> start()
+ ;
+
+=head1 REQUIRES
+
+L<Scalar::Util> 
+
+L<Carp> 
+
+L<Moose> 
+
+=head1 DESCRIPTION
+
+It C<AUTOLOAD>s service's methods.
+
+=head2 Applied roles
+
+L<Salvation::Roles::AppArgs>
+
+L<Salvation::Roles::DataSet>
+
+L<Salvation::Roles::SharedStorage>
+
+L<Salvation::Roles::SystemReference>
+
+L<Salvation::Roles::ServiceState>
+
+=head1 METHODS
+
+=head2 service
+
+ $intent -> service();
+
+Returns an appropriate L<Salvation::Service>-derived object instance.
+
+=cut
+
