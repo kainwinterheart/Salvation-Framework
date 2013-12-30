@@ -74,3 +74,135 @@ sub parse
 
 -1;
 
+# ABSTRACT: Salvation::Service::View::Stack to XML converter
+
+=pod
+
+=head1 NAME
+
+Salvation::Service::View::Stack::Convert::To::XML - L<Salvation::Service::View::Stack> to XML converter
+
+=head1 SYNOPSIS
+
+ my $writer = XML::Writer -> new( ... );
+
+ my %args = (
+ 	writer => $writer,
+	charset => 'UTF-8',
+	nocharset => 0,
+	tags => {
+		stack => 'stack_xml_tag',
+		list => 'list_xml_tag',
+		frame => 'frame_xml_tag'
+	},
+	events => {
+		...
+	}
+ );
+
+ Salvation::Service::View::Stack::Convert::To::XML
+ 	-> parse(
+		$stack,
+		\%args
+	)
+ ;
+
+=head1 REQUIRES
+
+L<XML::Writer> 
+
+L<IO::String> 
+
+=head1 DESCRIPTION
+
+=head2 Wraps over
+
+L<Salvation::Service::View::Stack::Parser>
+
+=head1 METHODS
+
+=head2 parse
+
+ Salvation::Service::View::Stack::Convert::To::XML -> parse( $stack, \%args );
+
+Is just a wrapped C<Salvation::Service::View::Stack::Parser::parse> call.
+
+Returns generated XML as plain text.
+
+C<%args> can hold following additional keys:
+
+=over 4
+
+=item writer
+
+An L<XML::Writer> object instance.
+
+=item charset
+
+XML charset. String. An argument to C<XML::Writer::xmlDecl>.
+Default is C<UTF-8>.
+
+=item nocharset
+
+Boolean. Indicates whether L<Salvation::Service::View::Stack::Convert::To::XML> should set XML charset and produce xml declaration, or not.
+Default is true.
+
+=item tags
+
+A HashRef. Tells parser which XML tags to use.
+
+It can contain:
+
+=over 8
+
+=item stack
+
+A tag representing a stack itself.
+Default is C<stack> which produces following XML:
+
+ <stack>...</stack>
+
+=item list
+
+A tag representing a frame list.
+Default is C<list> which produces following XML:
+
+ <list name="fname">...</list>
+
+=item frame
+
+A tag representing a single frame.
+Default is C<frame> which produces following XML:
+
+ <frame title="cap" name="fname" type="ftype">...</frame>
+
+=back
+
+=back
+
+This module uses following event handlers:
+
+=over
+
+=item * before_stack
+
+=item * after_stack
+
+=item * before_frame_list
+
+=item * after_frame_list
+
+=item * before_frame_single
+
+=item * after_frame_single
+
+=item * raw
+
+=back
+
+Each C<%args> key is optional.
+
+You can set other event handlers and redefine the ones set by the parser itself.
+
+=cut
+
