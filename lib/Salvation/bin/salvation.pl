@@ -282,3 +282,48 @@ sub parse_pkg
 	return $out;
 }
 
+# ABSTRACT: Salvation CLI tool
+
+=pod
+
+=head1 NAME
+
+salvation.pl - Salvation CLI tool
+
+=head1 SYNOPSIS
+
+salvation.pl -d -S 'YourSystem'
+salvation.pl -d -S 'YourSystem' -s 'SomeService'
+salvation.pl -d -S 'YourSystem' -s 'SomeService' -h 'SomeTypeForHook' -v 'SomeValueForHook'
+salvation.pl -d -S 'YourSystem' -s 'SomeService,OtherService' -h 'SomeTypeForHook' -v 'SomeValueForHook'
+
+=head1 DESCRIPTION
+
+Command line tool which helps with generation of Salvation project files and directory tree.
+
+=head1 ARGUMENTS
+
+=head2 -d
+
+Represents your intent to deploy a project.
+
+Generates files and directory tree.
+
+=head2 -S
+
+Specifies the name of system affected.
+
+=head2 -s
+
+Specifies the name of service affected.
+
+=head2 -h
+
+Specifies the name of type of hook affected.
+
+=head2 -v
+
+Specifies the value of hook affected.
+
+=cut
+
