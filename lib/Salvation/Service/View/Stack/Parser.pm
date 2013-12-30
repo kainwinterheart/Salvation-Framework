@@ -140,7 +140,7 @@ L<Carp::Assert>
 
 Parses a C<$stack> which should be a L<Salvation::Service::View::Stack> object instance and produces an output you want it to produce.
 
-C<%args> should contain event handlers, as shown at SYNOPSIS.
+C<%args> can contain event handlers, as shown at SYNOPSIS.
 
 Event handler should be CodeRef.
 The only argument to event handler is C<$node> which is the object which is the subject of current event.
@@ -194,6 +194,8 @@ Occurs when the parser has already dove into L<Salvation::Service::View::Stack> 
 Occurs when the parser has already dove into L<Salvation::Service::View::Stack> object instance and just met a raw frame content.
 
 =back
+
+Each C<%args> key and each event handler is optional.
 
 =cut
 
