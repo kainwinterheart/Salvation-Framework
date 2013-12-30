@@ -91,3 +91,23 @@ no Moose::Role;
 
 -1;
 
+=pod
+
+=head1 NAME
+
+Salvation::Roles::SharedStorage - Shared storage reference definition
+
+=head1 REQUIRES
+
+L<Moose::Role> 
+
+=head1 METHODS
+
+=head2 storage
+
+ $self -> storage();
+
+Return appropriate L<Salvation::SharedStorage> object instance.
+
+=cut
+
