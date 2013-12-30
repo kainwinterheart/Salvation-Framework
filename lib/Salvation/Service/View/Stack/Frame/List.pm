@@ -150,3 +150,96 @@ no Moose;
 
 -1;
 
+# ABSTRACT: A list of a frames
+
+=pod
+
+=head1 NAME
+
+Salvation::Service::View::Stack::Frame::List - A list of a frames
+
+=head1 REQUIRES
+
+L<Moose> 
+
+=head1 DESCRIPTION
+
+In example, if a view's template has this:
+
+ some_type => [
+ 	'some_column'
+ ]
+
+then the view will generate L<Salvation::Service::View::Stack::Frame::List> object instance with C<fname> equal to C<some_type> containing an array of one element which is C<Salvation::Service::View::Stack::Frame> object instance with C<fname> equal to C<some_column> and C<ftype> equal to C<some_type>.
+
+=head2 Subclass of
+
+L<Salvation::Service::View::Stack::Frame>
+
+=head1 METHODS
+
+=head2 is_list
+
+Boolean. Returns true.
+
+=head2 cap
+
+Is not set, so is C<undef>.
+
+=head2 ftype
+
+Is not set, so is C<undef>.
+
+=head2 data
+
+ $list -> data()
+
+Returns an ArrrayRef of L<Salvation::Service::View::Stack::Frame>-derived object instances.
+
+=head2 add
+
+ $list -> add( @list );
+
+Adds frames to the list. Each element of the C<@list> should be a L<Salvation::Service::View::Stack::Frame>-derived object instance.
+
+Changes IDs of the frames being added.
+
+=head2 data_by_id
+
+ $list -> data_by_id( $integer );
+ $list -> data_by_id( \@integers );
+
+Find frames by IDs.
+
+In scalar context returns an ArrayRef of L<Salvation::Service::View::Stack::Frame>-derived object instances.
+
+In list context returns an array of L<Salvation::Service::View::Stack::Frame>-derived object instances.
+
+=head2 data_by_name
+
+ $list -> data_by_name( $fname );
+
+Find frames which C<fname> matches C<$fname>.
+
+In scalar context returns an ArrayRef of L<Salvation::Service::View::Stack::Frame>-derived object instances.
+
+In list context returns an array of L<Salvation::Service::View::Stack::Frame>-derived object instances.
+
+=head2 data_by_type
+
+ $list -> data_by_type( $ftype );
+
+Find frames which C<ftype> matches C<$ftype>.
+
+In scalar context returns an ArrayRef of L<Salvation::Service::View::Stack::Frame>-derived object instances.
+
+In list context returns an array of L<Salvation::Service::View::Stack::Frame>-derived object instances.
+
+=head2 wipe_data
+
+ $list -> wipe_data();
+
+Clears current frame list.
+
+=cut
+
