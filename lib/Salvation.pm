@@ -388,7 +388,7 @@ And then let's run C<test.pl> again, so it will produce an output kind of like t
 
 As you can see, hook has changed the way C<serial_number> column is rendered. So hooks can be used to change behaviour of your service and its components like view, model, contoller and OutputProcessor.
 
-You can continue playing with example files to test things as you like.
+You can continue playing with example files to test things as you like, simultaneously reading the docs for appropriate base classes and other modules.
 
 =cut
 
