@@ -10,3 +10,25 @@ no Moose::Role;
 
 -1;
 
+# ABSTRACT: Service reference definition
+
+=pod
+
+=head1 NAME
+
+Salvation::Roles::ServiceReference - Service reference definition
+
+=head1 REQUIRES
+
+L<Moose::Role> 
+
+=head1 METHODS
+
+=head2 service
+
+ $self -> service();
+
+Return appropriate L<Salvation::Service>-derived object instance.
+
+=cut
+
