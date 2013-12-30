@@ -551,8 +551,8 @@ A boolean value. When this value is true and the method fails - the service will
 
 =head3 Hook
 
- $self -> Hook( $value, $type );
- $self -> Hook( $value, $type, \%flags );
+ $self -> Hook( [ $value, $type ], ... );
+ $self -> Hook( [ $value, $type, \%flags ], ... );
 
 Adds a hook spec to the list.
 
