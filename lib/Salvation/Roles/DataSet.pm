@@ -33,3 +33,25 @@ no Moose::Role;
 
 -1;
 
+# ABSTRACT: DataSet reference definition
+
+=pod
+
+=head1 NAME
+
+Salvation::Roles::DataSet - DataSet reference definition
+
+=head1 REQUIRES
+
+L<Moose::Role> 
+
+=head1 METHODS
+
+=head2 dataset
+
+ $self -> dataset();
+
+Return appropriate L<Salvation::Service::DataSet>-derived object instance.
+
+=cut
+
