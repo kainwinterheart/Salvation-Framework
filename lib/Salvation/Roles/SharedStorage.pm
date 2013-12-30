@@ -91,6 +91,8 @@ no Moose::Role;
 
 -1;
 
+# ABSTRACT: Shared storage reference definition
+
 =pod
 
 =head1 NAME
