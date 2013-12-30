@@ -88,3 +88,112 @@ sub __trigger
 
 -1;
 
+# ABSTRACT: Salvation::Service::View::Stack parser
+
+=pod
+
+=head1 NAME
+
+Salvation::Service::View::Stack::Parser - L<Salvation::Service::View::Stack> parser
+
+=head1 SYNOPSIS
+
+ my %args = (
+ 	events => {
+ 		before_stack => sub{ ... },
+ 		after_stack  => sub{ ... },
+
+ 		before_node => sub{ ... },
+ 		after_node  => sub{ ... },
+
+ 		before_frame => sub{ ... },
+ 		after_frame  => sub{ ... },
+
+ 		before_frame_list => sub{ ... },
+ 		after_frame_list  => sub{ ... },
+
+ 		before_frame_single => sub{ ... },
+ 		after_frame_single  => sub{ ... },
+
+ 		raw => sub{ ... }
+ 	}
+ );
+
+ Salvation::Service::View::Stack
+ 	-> parse(
+		$stack,
+		\%args
+	)
+ ;
+
+=head1 REQUIRES
+
+L<Scalar::Util> 
+
+L<Carp::Assert> 
+
+=head1 METHODS
+
+=head2 parse
+
+ Salvation::Service::View::Stack -> parse( $stack, \%args );
+
+Parses a C<$stack> which should be a L<Salvation::Service::View::Stack> object instance and produces an output you want it to produce.
+
+C<%args> should contain event handlers, as shown at SYNOPSIS.
+
+Event handler should be CodeRef.
+The only argument to event handler is C<$node> which is the object which is the subject of current event.
+
+Events are:
+
+=over
+
+=item before_stack
+
+Occurs when the parser is about to dive into L<Salvation::Service::View::Stack> object instance.
+
+=item after_stack
+
+Occurs when the parser is about to leave L<Salvation::Service::View::Stack> object instance.
+
+=item before_node
+
+Occurs when the parser has already dove into L<Salvation::Service::View::Stack> object instance and just met an object to be parsed.
+
+=item after_node
+
+Occurs when the parser has already dove into L<Salvation::Service::View::Stack> object instance and finished parsing an object.
+
+=item before_frame
+
+Occurs when the parser has already dove into L<Salvation::Service::View::Stack> object instance and just met a L<Salvation::Service::View::Stack::Frame>-derived object instance.
+
+=item after_frame
+
+Occurs when the parser has already dove into L<Salvation::Service::View::Stack> object instance and finished parsing a L<Salvation::Service::View::Stack::Frame>-derived object instance.
+
+=item before_frame_list
+
+Occurs when the parser has already dove into L<Salvation::Service::View::Stack> object instance and just met a L<Salvation::Service::View::Stack::Frame>-derived object instance which C<is_list> call returns true.
+
+=item after_frame_list
+
+Occurs when the parser has already dove into L<Salvation::Service::View::Stack> object instance and finished parsing a L<Salvation::Service::View::Stack::Frame>-derived object instance which C<is_list> call returns true.
+
+=item before_frame_single
+
+Occurs when the parser has already dove into L<Salvation::Service::View::Stack> object instance and just met a L<Salvation::Service::View::Stack::Frame>-derived object instance which C<is_list> call returns false.
+
+=item after_frame_single
+
+Occurs when the parser has already dove into L<Salvation::Service::View::Stack> object instance and finished parsing a L<Salvation::Service::View::Stack::Frame>-derived object instance which C<is_list> call returns false.
+
+=item raw
+
+Occurs when the parser has already dove into L<Salvation::Service::View::Stack> object instance and just met a raw frame content.
+
+=back
+
+=cut
+
