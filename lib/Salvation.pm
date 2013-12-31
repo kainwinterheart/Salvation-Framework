@@ -2,7 +2,7 @@ use strict;
 
 package Salvation;
 
-our $VERSION = '0.99_11'; $VERSION = eval( $VERSION );
+our $VERSION = '0.9912'; $VERSION = eval( $VERSION );
 
 -1;
 

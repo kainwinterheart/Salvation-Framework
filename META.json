@@ -39,7 +39,7 @@
    "provides" : {
       "Salvation" : {
          "file" : "lib/Salvation.pm",
-         "version" : "0.9911"
+         "version" : "0.9912"
       },
       "Salvation::CLI" : {
          "file" : "lib/Salvation/CLI.pm"
@@ -131,5 +131,5 @@
          "url" : "https://github.com/kainwinterheart/Salvation-Framework.git"
       }
    },
-   "version" : "0.9911"
+   "version" : "0.9912"
 }

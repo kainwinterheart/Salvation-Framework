@@ -15,7 +15,7 @@ name: Salvation
 provides:
   Salvation:
     file: lib/Salvation.pm
-    version: 0.9911
+    version: 0.9912
   Salvation::CLI:
     file: lib/Salvation/CLI.pm
   Salvation::Roles::AppArgs:
@@ -85,4 +85,4 @@ resources:
   bugtracker: https://github.com/kainwinterheart/Salvation-Framework/issues
   license: http://dev.perl.org/licenses/
   repository: https://github.com/kainwinterheart/Salvation-Framework.git
-version: 0.9911
+version: 0.9912
