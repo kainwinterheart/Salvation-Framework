@@ -292,10 +292,10 @@ Salvation::CLI - Salvation CLI tool
 
 =head1 SYNOPSIS
 
-salvation.pl -d -S 'YourSystem'
-salvation.pl -d -S 'YourSystem' -s 'SomeService'
-salvation.pl -d -S 'YourSystem' -s 'SomeService' -h 'SomeTypeForHook' -v 'SomeValueForHook'
-salvation.pl -d -S 'YourSystem' -s 'SomeService,OtherService' -h 'SomeTypeForHook' -v 'SomeValueForHook'
+ salvation.pl -d -S 'YourSystem'
+ salvation.pl -d -S 'YourSystem' -s 'SomeService'
+ salvation.pl -d -S 'YourSystem' -s 'SomeService' -h 'SomeTypeForHook' -v 'SomeValueForHook'
+ salvation.pl -d -S 'YourSystem' -s 'SomeService,OtherService' -h 'SomeTypeForHook' -v 'SomeValueForHook'
 
 =head1 DESCRIPTION
 
