@@ -1,5 +1,5 @@
 {
-   "abstract" : "Build complex systems on top of simple skel",
+   "abstract" : "Simple and free architectural solution for huge applications",
    "author" : [
       "Gennadiy Filatov <kain.winterheart@gmail.com>"
    ],
@@ -121,9 +121,15 @@
    },
    "release_status" : "stable",
    "resources" : {
+      "bugtracker" : {
+         "web" : "https://github.com/kainwinterheart/Salvation-Framework/issues"
+      },
       "license" : [
          "http://dev.perl.org/licenses/"
-      ]
+      ],
+      "repository" : {
+         "url" : "https://github.com/kainwinterheart/Salvation-Framework.git"
+      }
    },
    "version" : "0.991"
 }

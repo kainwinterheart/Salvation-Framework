@@ -9,7 +9,7 @@ use Module::Build ();
 Module::Build
 	-> new(
 		module_name 		=> 'Salvation',
-		dist_abstract 		=> 'Build complex systems on top of simple skel',
+		dist_abstract 		=> 'Simple and free architectural solution for huge applications',
 		dist_author 		=> [ 'Gennadiy Filatov <kain.winterheart@gmail.com>' ],
 		license 		=> 'perl',
 		recursive_test_files 	=> 1,
@@ -29,6 +29,12 @@ Module::Build
 			'Scalar::Util' 	=> 1.21,
 			'XML::Writer' 	=> 0.615,
 			'Module::Load'	=> 0.16,
+		},
+		meta_merge              => {
+			resources       => {
+				repository => 'https://github.com/kainwinterheart/Salvation-Framework.git',
+				bugtracker => 'https://github.com/kainwinterheart/Salvation-Framework/issues'
+			}
 		}
 	)
 	-> create_build_script()

@@ -1,5 +1,5 @@
 ---
-abstract: 'Build complex systems on top of simple skel'
+abstract: 'Simple and free architectural solution for huge applications'
 author:
   - 'Gennadiy Filatov <kain.winterheart@gmail.com>'
 build_requires: {}
@@ -82,5 +82,7 @@ requires:
   XML::Writer: 0.615
   perl: v5.10.1
 resources:
+  bugtracker: https://github.com/kainwinterheart/Salvation-Framework/issues
   license: http://dev.perl.org/licenses/
+  repository: https://github.com/kainwinterheart/Salvation-Framework.git
 version: 0.991
