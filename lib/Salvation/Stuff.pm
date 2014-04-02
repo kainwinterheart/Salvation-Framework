@@ -9,10 +9,11 @@ our @EXPORT 	 = ();
 
 our @EXPORT_OK 	 = ( '&full_pkg',
 		     '&load_class',
+		     '&package_name_or_die',
 		     '&is_namespace_present' );
 
 our %EXPORT_TAGS = ( all => \@EXPORT_OK );
-our $VERSION 	 = 1.00;
+our $VERSION 	 = 1.01;
 
 sub full_pkg
 {
@@ -21,7 +22,7 @@ sub full_pkg
 
 sub load_class
 {
-	my $class = shift;
+	my $class = &package_name_or_die( shift );
 
 	return 1 if &is_namespace_present( $class ) and $class -> can( 'new' );
 
@@ -57,6 +58,29 @@ sub is_namespace_present
 	}
 
 	return ( scalar( @parts ) == $ok );
+}
+
+sub package_name_or_die
+{
+        my $orig_str = shift;
+
+	die 'Reference could not be package name' if ref $orig_str;
+
+	( my $str = $orig_str ) =~ s/\:\://g;
+
+	unless( $str =~ m/^[a-z_][0-9a-z_]*$/i )
+	{
+		eval
+		{
+			require URI::Escape;
+
+			$orig_str = &URI::Escape::uri_escape( $orig_str );
+		};
+
+		die sprintf( 'Invalid package name: %s', $orig_str );
+	}
+
+	return $orig_str;
 }
 
 -1;

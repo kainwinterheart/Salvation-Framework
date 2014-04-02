@@ -4,7 +4,7 @@
       "Gennadiy Filatov <kain.winterheart@gmail.com>"
    ],
    "dynamic_config" : 1,
-   "generated_by" : "Module::Build version 0.4004, CPAN::Meta::Converter version 2.133380",
+   "generated_by" : "Module::Build version 0.4003, CPAN::Meta::Converter version 2.120921",
    "license" : [
       "perl_5"
    ],
@@ -39,84 +39,107 @@
    "provides" : {
       "Salvation" : {
          "file" : "lib/Salvation.pm",
-         "version" : "0.9912"
+         "version" : "0.9913"
       },
       "Salvation::CLI" : {
-         "file" : "lib/Salvation/CLI.pm"
+         "file" : "lib/Salvation/CLI.pm",
+         "version" : 0
       },
       "Salvation::Roles::AppArgs" : {
-         "file" : "lib/Salvation/Roles/AppArgs.pm"
+         "file" : "lib/Salvation/Roles/AppArgs.pm",
+         "version" : 0
       },
       "Salvation::Roles::DataSet" : {
-         "file" : "lib/Salvation/Roles/DataSet.pm"
+         "file" : "lib/Salvation/Roles/DataSet.pm",
+         "version" : 0
       },
       "Salvation::Roles::ServiceReference" : {
-         "file" : "lib/Salvation/Roles/ServiceReference.pm"
+         "file" : "lib/Salvation/Roles/ServiceReference.pm",
+         "version" : 0
       },
       "Salvation::Roles::ServiceState" : {
-         "file" : "lib/Salvation/Roles/ServiceState.pm"
+         "file" : "lib/Salvation/Roles/ServiceState.pm",
+         "version" : 0
       },
       "Salvation::Roles::SharedStorage" : {
-         "file" : "lib/Salvation/Roles/SharedStorage.pm"
+         "file" : "lib/Salvation/Roles/SharedStorage.pm",
+         "version" : 0
       },
       "Salvation::Roles::SystemReference" : {
-         "file" : "lib/Salvation/Roles/SystemReference.pm"
+         "file" : "lib/Salvation/Roles/SystemReference.pm",
+         "version" : 0
       },
       "Salvation::Service" : {
-         "file" : "lib/Salvation/Service.pm"
+         "file" : "lib/Salvation/Service.pm",
+         "version" : 0
       },
       "Salvation::Service::Controller" : {
-         "file" : "lib/Salvation/Service/Controller.pm"
+         "file" : "lib/Salvation/Service/Controller.pm",
+         "version" : 0
       },
       "Salvation::Service::DataSet" : {
-         "file" : "lib/Salvation/Service/DataSet.pm"
+         "file" : "lib/Salvation/Service/DataSet.pm",
+         "version" : 0
       },
       "Salvation::Service::Hook" : {
-         "file" : "lib/Salvation/Service/Hook.pm"
+         "file" : "lib/Salvation/Service/Hook.pm",
+         "version" : 0
       },
       "Salvation::Service::Intent" : {
-         "file" : "lib/Salvation/Service/Intent.pm"
+         "file" : "lib/Salvation/Service/Intent.pm",
+         "version" : 0
       },
       "Salvation::Service::Model" : {
-         "file" : "lib/Salvation/Service/Model.pm"
+         "file" : "lib/Salvation/Service/Model.pm",
+         "version" : 0
       },
       "Salvation::Service::OutputProcessor" : {
-         "file" : "lib/Salvation/Service/OutputProcessor.pm"
+         "file" : "lib/Salvation/Service/OutputProcessor.pm",
+         "version" : 0
       },
       "Salvation::Service::State" : {
-         "file" : "lib/Salvation/Service/State.pm"
+         "file" : "lib/Salvation/Service/State.pm",
+         "version" : 0
       },
       "Salvation::Service::View" : {
-         "file" : "lib/Salvation/Service/View.pm"
+         "file" : "lib/Salvation/Service/View.pm",
+         "version" : 0
       },
       "Salvation::Service::View::SimpleCache" : {
          "file" : "lib/Salvation/Service/View/SimpleCache.pm",
          "version" : "1"
       },
       "Salvation::Service::View::Stack" : {
-         "file" : "lib/Salvation/Service/View/Stack.pm"
+         "file" : "lib/Salvation/Service/View/Stack.pm",
+         "version" : 0
       },
       "Salvation::Service::View::Stack::Convert::To::XML" : {
-         "file" : "lib/Salvation/Service/View/Stack/Convert/To/XML.pm"
+         "file" : "lib/Salvation/Service/View/Stack/Convert/To/XML.pm",
+         "version" : 0
       },
       "Salvation::Service::View::Stack::Frame" : {
-         "file" : "lib/Salvation/Service/View/Stack/Frame.pm"
+         "file" : "lib/Salvation/Service/View/Stack/Frame.pm",
+         "version" : 0
       },
       "Salvation::Service::View::Stack::Frame::List" : {
-         "file" : "lib/Salvation/Service/View/Stack/Frame/List.pm"
+         "file" : "lib/Salvation/Service/View/Stack/Frame/List.pm",
+         "version" : 0
       },
       "Salvation::Service::View::Stack::Parser" : {
-         "file" : "lib/Salvation/Service/View/Stack/Parser.pm"
+         "file" : "lib/Salvation/Service/View/Stack/Parser.pm",
+         "version" : 0
       },
       "Salvation::SharedStorage" : {
-         "file" : "lib/Salvation/SharedStorage.pm"
+         "file" : "lib/Salvation/SharedStorage.pm",
+         "version" : 0
       },
       "Salvation::Stuff" : {
          "file" : "lib/Salvation/Stuff.pm",
-         "version" : "1"
+         "version" : "1.01"
       },
       "Salvation::System" : {
-         "file" : "lib/Salvation/System.pm"
+         "file" : "lib/Salvation/System.pm",
+         "version" : 0
       }
    },
    "release_status" : "stable",
@@ -131,5 +154,5 @@
          "url" : "https://github.com/kainwinterheart/Salvation-Framework.git"
       }
    },
-   "version" : "0.9912"
+   "version" : "0.9913"
 }
